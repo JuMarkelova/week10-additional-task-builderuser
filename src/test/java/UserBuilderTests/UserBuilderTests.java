@@ -113,4 +113,31 @@ public class UserBuilderTests {
         Assert.assertEquals(userList.size(), 1, "Wrong filtration");
         Assert.assertEquals(userList.getFirst().getId(), 2L, "Incorrect id");
     }
+
+    @Test
+    public void filterUsersByIdAge() {
+        List<User> userList = new ArrayList<>();
+        userList.add(User.newBuilder()
+                .setId(1)
+                .setLogin("lalala")
+                .setPassword(new StringBuilder("lalala"))
+                .setAge(25)
+                .build());
+        userList.add(User.newBuilder()
+                .setId(2)
+                .setLogin("lalalada")
+                .setPassword(new StringBuilder("lalalada"))
+                .setAge(0)
+                .build());
+        userList.add(User.newBuilder()
+                .setId(6)
+                .setLogin("lalarea")
+                .setPassword(new StringBuilder("lalarea"))
+                .setAge(6)
+                .build());
+        userList = new Controller(new UserService()).filterByIDAge(userList.stream());
+        Assert.assertEquals(userList.size(), 1, "Wrong filtration");
+        Assert.assertEquals(userList.getFirst().getId(), 6, "Incorrect id");
+        Assert.assertEquals(userList.getFirst().getAge(), 6, "Incorrect age");
+    }
 }

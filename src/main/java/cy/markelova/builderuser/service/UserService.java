@@ -19,10 +19,17 @@ public class UserService {
     }
 
     List<User> sortUsersByAge(Stream<User> userStream) {
-         return userStream.sorted((user1, user2) -> Integer.compare(user1.getAge(), user2.getAge())).toList();
+        return userStream.sorted((user1, user2) -> Integer.compare(user1.getAge(), user2.getAge())).toList();
     }
 
     List<User> filterUsersEvenId(Stream<User> userStream) {
         return userStream.filter(user -> user.getId() % 2 == 0).toList();
+    }
+
+    List<User> filterByIDAge(Stream<User> userStream) throws RuntimeException {
+        List<User> filteredList = userStream.filter(user -> user.getId() == user.getAge()).toList();
+        if (filteredList.isEmpty()) {
+            throw new RuntimeException("There is no user in a list");
+        } else return filteredList;
     }
 }

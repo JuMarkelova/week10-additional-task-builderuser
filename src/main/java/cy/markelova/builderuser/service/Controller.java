@@ -33,4 +33,8 @@ public class Controller {
     public List<User> filterUsersEvenId(Stream<User> userStream) {
         return userService.filterUsersEvenId(userStream);
     }
+
+    public List<User> filterByIDAge(Stream<User> userStream) {
+        return userService.filterByIDAge(userStream);
+    }
 }

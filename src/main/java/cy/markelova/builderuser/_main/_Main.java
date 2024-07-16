@@ -23,11 +23,14 @@ public class _Main {
         List<User> userList = controller.createUsers(userBuilders.stream()).toList();
         System.out.println("Unsorted list:");
         controller.printUserStream(userList.stream());
-        System.out.println("Sorted list:");
+        System.out.println("\nSorted list by age:");
         List<User> sortedUserList = controller.sortUsersByAge(userList.stream());
         controller.printUserStream(sortedUserList.stream());
-        System.out.println("Filtered list:");
+        System.out.println("\nFiltered by even id list:");
         List<User> filteredUsers = controller.filterUsersEvenId(sortedUserList.stream());
         controller.printUserStream(filteredUsers.stream());
+        System.out.println("\nFiltered by equality of id and age list:");
+        List<User> filteredByIdAgeList = controller.filterByIDAge(filteredUsers.stream());
+        controller.printUserStream(filteredByIdAgeList.stream());
     }
 }
