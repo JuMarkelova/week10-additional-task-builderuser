@@ -59,19 +59,19 @@ public class UserBuilderTests {
     }
 
     @Test
-    public void sortUsersByAge() {
+    public void sortUsersByAgeDesc() {
         List<User> userList = new ArrayList<>();
         userList.add(User.newBuilder()
                 .setId(1)
                 .setLogin("lalala")
                 .setPassword(new StringBuilder("lalala"))
-                .setAge(25)
+                .setAge(14)
                 .build());
         userList.add(User.newBuilder()
                 .setId(2)
                 .setLogin("lalalada")
                 .setPassword(new StringBuilder("lalalada"))
-                .setAge(14)
+                .setAge(25)
                 .build());
         userList.add(User.newBuilder()
                 .setId(3)
@@ -79,13 +79,13 @@ public class UserBuilderTests {
                 .setPassword(new StringBuilder("lalarea"))
                 .setAge(19)
                 .build());
-        Assert.assertEquals(userList.get(0).getAge(), 25, "Added incorrect");
-        Assert.assertEquals(userList.get(1).getAge(), 14, "Added incorrect");
+        Assert.assertEquals(userList.get(0).getAge(), 14, "Added incorrect");
+        Assert.assertEquals(userList.get(1).getAge(), 25, "Added incorrect");
         Assert.assertEquals(userList.get(2).getAge(), 19, "Added incorrect");
         userList = new Controller(new UserService()).sortUsersByAge(userList.stream());
-        Assert.assertEquals(userList.get(0).getAge(), 14, "Sorted incorrect");
+        Assert.assertEquals(userList.get(0).getAge(), 25, "Sorted incorrect");
         Assert.assertEquals(userList.get(1).getAge(), 19, "Sorted incorrect");
-        Assert.assertEquals(userList.get(2).getAge(), 25, "Sorted incorrect");
+        Assert.assertEquals(userList.get(2).getAge(), 14, "Sorted incorrect");
     }
 
     @Test
@@ -109,7 +109,7 @@ public class UserBuilderTests {
                 .setPassword(new StringBuilder("lalarea"))
                 .setAge(19)
                 .build());
-        userList = new Controller(new UserService()).filterUsersEvenId(userList.stream());
+        userList = new Controller(new UserService()).filterUsersEvenId(userList.stream()).toList();
         Assert.assertEquals(userList.size(), 1, "Wrong filtration");
         Assert.assertEquals(userList.getFirst().getId(), 2L, "Incorrect id");
     }

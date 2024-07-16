@@ -26,11 +26,19 @@ public class Controller {
         return userService.sortUsersByAge(userStream);
     }
 
+    public void printUserList(List<User> userList) {
+        userView.printUserList(userList);
+    }
+
     public void printUserStream(Stream<User> userStream) {
         userView.printUserStream(userStream);
     }
 
-    public List<User> filterUsersEvenId(Stream<User> userStream) {
+    public void printUserStreamOrException(Stream<User> userStream) {
+        userView.printUserStreamOrException(userStream);
+    }
+
+    public Stream<User> filterUsersEvenId(Stream<User> userStream) {
         return userService.filterUsersEvenId(userStream);
     }
 

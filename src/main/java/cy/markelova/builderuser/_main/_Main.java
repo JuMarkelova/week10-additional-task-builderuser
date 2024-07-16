@@ -8,6 +8,7 @@ import cy.markelova.builderuser.service.UserView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class _Main {
 
@@ -16,21 +17,21 @@ public class _Main {
         UserView userView = new UserView();
         Controller controller = new Controller(userService, userView);
         List<User.UserBuilder> userBuilders = new ArrayList<>();
-
         IntStream.rangeClosed(1, 20)
                 .forEach(_ -> userBuilders.add(User.newBuilder()));
 
-        List<User> userList = controller.createUsers(userBuilders.stream()).toList();
         System.out.println("Unsorted list:");
-        controller.printUserStream(userList.stream());
+        List<User> userList = controller.createUsers(userBuilders.stream()).toList();
+        controller.printUserList(userList);
         System.out.println("\nSorted list by age:");
         List<User> sortedUserList = controller.sortUsersByAge(userList.stream());
-        controller.printUserStream(sortedUserList.stream());
+        controller.printUserList(sortedUserList);
+
         System.out.println("\nFiltered by even id list:");
-        List<User> filteredUsers = controller.filterUsersEvenId(sortedUserList.stream());
-        controller.printUserStream(filteredUsers.stream());
+        Stream<User> filteredUsers = controller.filterUsersEvenId(sortedUserList.stream());
+        controller.printUserStream(filteredUsers);
         System.out.println("\nFiltered by equality of id and age list:");
-        List<User> filteredByIdAgeList = controller.filterByIDAge(filteredUsers.stream());
-        controller.printUserStream(filteredByIdAgeList.stream());
+        List<User> filteredByIdAgeList = controller.filterByIDAge(filteredUsers);
+        controller.printUserStreamOrException(filteredByIdAgeList.stream());
     }
 }
