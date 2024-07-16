@@ -27,13 +27,18 @@ public class User {
         return login;
     }
 
+    public String toString() {
+        return String.format("User id: %-4d login: %-20s password: **** age: %-3d",
+                this.getId(), this.getLogin(), this.getAge());
+    }
+
     public static UserBuilder newBuilder() {
         return new User().new UserBuilder();
     }
 
     public class UserBuilder {
 
-        long count = 0;
+        static long count = 0;
 
         private UserBuilder() {
         }

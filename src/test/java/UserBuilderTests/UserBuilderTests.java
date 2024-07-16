@@ -6,8 +6,8 @@ import cy.markelova.builderuser.service.UserService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class UserBuilderTests {
 
@@ -40,6 +40,25 @@ public class UserBuilderTests {
     }
 
     @Test
+    public void testGenRandomId() {
+        User user1 = User.newBuilder()
+                .setRandomId()
+                .setRandomLogin()
+                .setRandomPassword()
+                .setRandomAge()
+                .build();
+        User user2 = User.newBuilder()
+                .setRandomId()
+                .setRandomLogin()
+                .setRandomPassword()
+                .setRandomAge()
+                .build();
+        Assert.assertEquals(user1.getId(), 1L, "Incorrect id");
+        Assert.assertEquals(user2.getId(), 2L, "Incorrect id");
+
+    }
+
+    @Test
     public void sortUsers() {
         User user1 = User.newBuilder()
                 .setId(1)
@@ -59,7 +78,14 @@ public class UserBuilderTests {
                 .setPassword(new StringBuilder("lalarea"))
                 .setAge(19)
                 .build();
-        List<User> userList = new Controller(new UserService()).sortUsers(Stream.of(user1, user2, user3)).toList();
+        List<User> userList = new ArrayList<>();
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        Assert.assertEquals(userList.get(0).getAge(), 25, "Added incorrect");
+        Assert.assertEquals(userList.get(1).getAge(), 14, "Added incorrect");
+        Assert.assertEquals(userList.get(2).getAge(), 19, "Added incorrect");
+        userList = new Controller(new UserService()).sortUsers(userList.stream());
         Assert.assertEquals(userList.get(0).getAge(), 14, "Sorted incorrect");
         Assert.assertEquals(userList.get(1).getAge(), 19, "Sorted incorrect");
         Assert.assertEquals(userList.get(2).getAge(), 25, "Sorted incorrect");
