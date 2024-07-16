@@ -16,4 +16,8 @@ public class UserService {
                         .build()
         );
     }
+
+    Stream<User> sortUsers(Stream<User> usersStream) {
+         return usersStream.sorted((user1, user2) -> Integer.compare(user1.getAge(), user2.getAge()));
+    }
 }

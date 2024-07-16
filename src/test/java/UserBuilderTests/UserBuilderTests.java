@@ -1,8 +1,13 @@
 package UserBuilderTests;
 
 import cy.markelova.builderuser.entity.User;
+import cy.markelova.builderuser.service.Controller;
+import cy.markelova.builderuser.service.UserService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.List;
+import java.util.stream.Stream;
 
 public class UserBuilderTests {
 
@@ -32,5 +37,31 @@ public class UserBuilderTests {
         Assert.assertTrue(user.getLogin().length() >= 5 && user.getLogin().length() <= 20, "Incorrect login");
         Assert.assertTrue(user.getPassword().length() >= 5 && user.getPassword().length() <= 20, "Incorrect password");
         Assert.assertTrue(user.getAge() >= 0 && user.getAge() <= 99, "Incorrect age");
+    }
+
+    @Test
+    public void sortUsers() {
+        User user1 = User.newBuilder()
+                .setId(1)
+                .setLogin("lalala")
+                .setPassword(new StringBuilder("lalala"))
+                .setAge(25)
+                .build();
+        User user2 = User.newBuilder()
+                .setId(2)
+                .setLogin("lalalada")
+                .setPassword(new StringBuilder("lalalada"))
+                .setAge(14)
+                .build();
+        User user3 = User.newBuilder()
+                .setId(3)
+                .setLogin("lalarea")
+                .setPassword(new StringBuilder("lalarea"))
+                .setAge(19)
+                .build();
+        List<User> userList = new Controller(new UserService()).sortUsers(Stream.of(user1, user2, user3)).toList();
+        Assert.assertEquals(userList.get(0).getAge(), 14, "Sorted incorrect");
+        Assert.assertEquals(userList.get(1).getAge(), 19, "Sorted incorrect");
+        Assert.assertEquals(userList.get(2).getAge(), 25, "Sorted incorrect");
     }
 }

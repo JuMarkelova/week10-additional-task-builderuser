@@ -14,4 +14,8 @@ public class Controller {
     public Stream<User> createUsers(Stream<User.UserBuilder> userBuilders) {
         return userService.createUsers(userBuilders);
     }
+
+    public Stream<User> sortUsers(Stream<User> usersStream) {
+        return userService.sortUsers(usersStream);
+    }
 }
