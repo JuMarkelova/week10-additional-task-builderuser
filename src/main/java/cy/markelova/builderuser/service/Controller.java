@@ -11,7 +11,7 @@ public class Controller {
         this.userService = service;
     }
 
-    public void createUsers(Stream<User.UserBuilder> userBuilders) {
-        userService.createUsers(userBuilders);
+    public Stream<User> createUsers(Stream<User.UserBuilder> userBuilders) {
+        return userService.createUsers(userBuilders);
     }
 }

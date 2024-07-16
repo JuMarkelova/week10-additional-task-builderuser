@@ -16,8 +16,6 @@ public class _Main {
         Controller controller = new Controller(userService);
         List<User.UserBuilder> userBuilders = new ArrayList<>();
 
-//        Stream<User.UserBuilder> userBuildersStream;
-
         for (int i = 0; i < 20; i++) {
             userBuilders.add(User.newBuilder());
         }
@@ -25,6 +23,6 @@ public class _Main {
 //        IntStream.rangeClosed(1, 20)
 //                .forEach(_ -> userBuilders.add(User.newBuilder()));
 
-//        controller.createUsers(userBuilders);
+        Stream<User> usersStream = controller.createUsers(userBuilders.stream());
     }
 }
