@@ -18,7 +18,11 @@ public class UserService {
         );
     }
 
-    List<User> sortUsers(Stream<User> usersStream) {
-         return usersStream.sorted((user1, user2) -> Integer.compare(user1.getAge(), user2.getAge())).toList();
+    List<User> sortUsersByAge(Stream<User> userStream) {
+         return userStream.sorted((user1, user2) -> Integer.compare(user1.getAge(), user2.getAge())).toList();
+    }
+
+    List<User> filterUsersEvenId(Stream<User> userStream) {
+        return userStream.filter(user -> user.getId() % 2 == 0).toList();
     }
 }

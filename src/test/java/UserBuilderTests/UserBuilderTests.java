@@ -59,35 +59,58 @@ public class UserBuilderTests {
     }
 
     @Test
-    public void sortUsers() {
-        User user1 = User.newBuilder()
+    public void sortUsersByAge() {
+        List<User> userList = new ArrayList<>();
+        userList.add(User.newBuilder()
                 .setId(1)
                 .setLogin("lalala")
                 .setPassword(new StringBuilder("lalala"))
                 .setAge(25)
-                .build();
-        User user2 = User.newBuilder()
+                .build());
+        userList.add(User.newBuilder()
                 .setId(2)
                 .setLogin("lalalada")
                 .setPassword(new StringBuilder("lalalada"))
                 .setAge(14)
-                .build();
-        User user3 = User.newBuilder()
+                .build());
+        userList.add(User.newBuilder()
                 .setId(3)
                 .setLogin("lalarea")
                 .setPassword(new StringBuilder("lalarea"))
                 .setAge(19)
-                .build();
-        List<User> userList = new ArrayList<>();
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
+                .build());
         Assert.assertEquals(userList.get(0).getAge(), 25, "Added incorrect");
         Assert.assertEquals(userList.get(1).getAge(), 14, "Added incorrect");
         Assert.assertEquals(userList.get(2).getAge(), 19, "Added incorrect");
-        userList = new Controller(new UserService()).sortUsers(userList.stream());
+        userList = new Controller(new UserService()).sortUsersByAge(userList.stream());
         Assert.assertEquals(userList.get(0).getAge(), 14, "Sorted incorrect");
         Assert.assertEquals(userList.get(1).getAge(), 19, "Sorted incorrect");
         Assert.assertEquals(userList.get(2).getAge(), 25, "Sorted incorrect");
+    }
+
+    @Test
+    public void filterUsersEvenId() {
+        List<User> userList = new ArrayList<>();
+        userList.add(User.newBuilder()
+                .setId(1)
+                .setLogin("lalala")
+                .setPassword(new StringBuilder("lalala"))
+                .setAge(25)
+                .build());
+        userList.add(User.newBuilder()
+                .setId(2)
+                .setLogin("lalalada")
+                .setPassword(new StringBuilder("lalalada"))
+                .setAge(14)
+                .build());
+        userList.add(User.newBuilder()
+                .setId(3)
+                .setLogin("lalarea")
+                .setPassword(new StringBuilder("lalarea"))
+                .setAge(19)
+                .build());
+        userList = new Controller(new UserService()).filterUsersEvenId(userList.stream());
+        Assert.assertEquals(userList.size(), 1, "Wrong filtration");
+        Assert.assertEquals(userList.getFirst().getId(), 2L, "Incorrect id");
     }
 }

@@ -21,9 +21,13 @@ public class _Main {
                 .forEach(_ -> userBuilders.add(User.newBuilder()));
 
         List<User> userList = controller.createUsers(userBuilders.stream()).toList();
+        System.out.println("Unsorted list:");
         controller.printUserStream(userList.stream());
-        System.out.println();
-        List<User> sortedUserList = controller.sortUsers(userList.stream());
+        System.out.println("Sorted list:");
+        List<User> sortedUserList = controller.sortUsersByAge(userList.stream());
         controller.printUserStream(sortedUserList.stream());
+        System.out.println("Filtered list:");
+        List<User> filteredUsers = controller.filterUsersEvenId(sortedUserList.stream());
+        controller.printUserStream(filteredUsers.stream());
     }
 }

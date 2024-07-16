@@ -22,11 +22,15 @@ public class Controller {
         return userService.createUsers(userBuilders);
     }
 
-    public List<User> sortUsers(Stream<User> userStream) {
-        return userService.sortUsers(userStream);
+    public List<User> sortUsersByAge(Stream<User> userStream) {
+        return userService.sortUsersByAge(userStream);
     }
 
     public void printUserStream(Stream<User> userStream) {
         userView.printUserStream(userStream);
+    }
+
+    public List<User> filterUsersEvenId(Stream<User> userStream) {
+        return userService.filterUsersEvenId(userStream);
     }
 }
