@@ -1,5 +1,7 @@
 package cy.markelova.builderuser.entity;
 
+import cy.markelova.builderuser.util.DataGenerator;
+
 public class User {
     private Long id;
     private String login;
@@ -25,32 +27,53 @@ public class User {
         return login;
     }
 
-    public static InnerBuilder newBuilder() {
-        return new User().new InnerBuilder();
+    public static UserBuilder newBuilder() {
+        return new User().new UserBuilder();
     }
 
-    public class InnerBuilder {
+    public class UserBuilder {
 
-        private InnerBuilder() {
+        long count = 0;
 
+        private UserBuilder() {
         }
 
-        public InnerBuilder setId(Long id) {
+        public UserBuilder setRandomId() {
+            User.this.id = ++count;
+            return this;
+        }
+
+        public UserBuilder setId(long id) {
             User.this.id = id;
             return this;
         }
 
-        public InnerBuilder setLogin(String login) {
+        public UserBuilder setRandomLogin() {
+            User.this.login = String.valueOf(DataGenerator.generateRandomString());
+            return this;
+        }
+
+        public UserBuilder setLogin(String login) {
             User.this.login = login;
             return this;
         }
 
-        public InnerBuilder setPassword(StringBuilder password) {
+        public UserBuilder setRandomPassword() {
+            User.this.password = DataGenerator.generateRandomString();
+            return this;
+        }
+
+        public UserBuilder setPassword(StringBuilder password) {
             User.this.password = password;
             return this;
         }
 
-        public InnerBuilder setAge(int age) {
+        public UserBuilder setRandomAge() {
+            User.this.age = (int) (Math.random() * 81 + 18);
+            return this;
+        }
+
+        public UserBuilder setAge(int age) {
             User.this.age = age;
             return this;
         }
