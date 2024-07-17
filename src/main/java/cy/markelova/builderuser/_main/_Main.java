@@ -1,11 +1,10 @@
 package cy.markelova.builderuser._main;
 
-import cy.markelova.builderuser.service.Controller;
 import cy.markelova.builderuser.entity.User;
+import cy.markelova.builderuser.service.Controller;
 import cy.markelova.builderuser.service.UserService;
 import cy.markelova.builderuser.service.UserView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -16,9 +15,10 @@ public class _Main {
         UserService userService = new UserService();
         UserView userView = new UserView();
         Controller controller = new Controller(userService, userView);
-        List<User.UserBuilder> userBuilders = new ArrayList<>();
-        IntStream.rangeClosed(1, 20)
-                .forEach(_ -> userBuilders.add(User.newBuilder()));
+        List<User.UserBuilder> userBuilders = IntStream
+                .rangeClosed(1, 20)
+                .mapToObj(_ -> User.newBuilder())
+                .toList();
 
         System.out.println("Unsorted list:");
         List<User> userList = controller.createUsers(userBuilders.stream()).toList();
@@ -26,7 +26,6 @@ public class _Main {
         System.out.println("\nSorted list by age:");
         List<User> sortedUserList = controller.sortUsersByAge(userList.stream());
         controller.printUserList(sortedUserList);
-
         System.out.println("\nFiltered by even id list:");
         Stream<User> filteredUsers = controller.filterUsersEvenId(sortedUserList.stream());
         controller.printUserStream(filteredUsers);
